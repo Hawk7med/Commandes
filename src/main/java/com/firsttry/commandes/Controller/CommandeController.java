@@ -18,4 +18,8 @@ public class CommandeController {
     public List<Commande> getAllCommandes(){
         return Cr.findAll();
     }
+    @RequestMapping("/Commandes/test")
+    public List<Commande> getAllCommandes1(){
+        return Cr.findAll();
+    }
 }
