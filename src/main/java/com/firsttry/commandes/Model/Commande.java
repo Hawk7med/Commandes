@@ -1,69 +1,75 @@
 package com.firsttry.commandes.Model;
 
 import jakarta.persistence.*;
-import org.springframework.boot.autoconfigure.web.WebProperties;
+
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
-@Table(name = "commandes")
-
 public class Commande {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-    private String nomClient;
-    private String produit;
-    private int quantite;
+    private Long idCommande;
+    private String dateAchat;
+    private double prixTotal;
+
+    @ManyToOne
+    @JoinColumn(name = "idClient")
+    private Client client;
+
+    @OneToMany(mappedBy = "commande")
+    private Set<CommandeProduit> commandeProduits = new HashSet<>(); // Correction du nom de la variable
 
     // Constructeurs
     public Commande() {
     }
 
-    public Commande(String nomClient, String produit, int quantite) {
-        this.nomClient = nomClient;
-        this.produit = produit;
-        this.quantite = quantite;
+    public Commande(String dateAchat, double prixTotal, Client client) {
+        this.dateAchat = dateAchat;
+        this.prixTotal = prixTotal;
+        this.client = client;
     }
 
-    // Getters et Setters
-    public Long getId() {
-        return id;
+    // Getters and setters
+    public Long getIdCommande() {
+        return idCommande;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setIdCommande(Long idCommande) {
+        this.idCommande = idCommande;
     }
 
-    public String getNomClient() {
-        return nomClient;
+    public String getDateAchat() {
+        return dateAchat;
     }
 
-    public void setNomClient(String nomClient) {
-        this.nomClient = nomClient;
+    public void setDateAchat(String dateAchat) {
+        this.dateAchat = dateAchat;
     }
 
-    public String getProduit() {
-        return produit;
+    public double getPrixTotal() {
+        return prixTotal;
     }
 
-    public void setProduit(String produit) {
-        this.produit = produit;
+    public void setPrixTotal(double prixTotal) {
+        this.prixTotal = prixTotal;
     }
 
-    public int getQuantite() {
-        return quantite;
+    public Client getClient() {
+        return client;
     }
 
-    public void setQuantite(int quantite) {
-        this.quantite = quantite;
+    public void setClient(Client client) {
+        this.client = client;
     }
 
-    @Override
-    public String toString() {
-        return "Commande{" +
-                "id=" + id +
-                ", nomClient='" + nomClient + '\'' +
-                ", produit='" + produit + '\'' +
-                ", quantite=" + quantite +
-                '}';
+    public Set<CommandeProduit> getCommandeProduits() { // Correction du nom de la méthode
+        return commandeProduits;
+    }
+
+    public void setCommandeProduits(Set<CommandeProduit> commandeProduits) { // Correction du nom de la méthode
+        this.commandeProduits = commandeProduits;
     }
 }
+
+

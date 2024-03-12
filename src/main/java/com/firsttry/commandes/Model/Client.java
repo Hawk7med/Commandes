@@ -1,6 +1,10 @@
 package com.firsttry.commandes.Model;
-import com.firsttry.commandes.Model.Commande;
+
 import jakarta.persistence.*;
+
+import java.util.HashSet;
+import java.util.Set;
+
 
 @Entity
 public class Client {
@@ -9,10 +13,12 @@ public class Client {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idClient;
 
-
     private String name;
     private String email;
     private String password;
+
+    @OneToMany(mappedBy = "client")
+    private Set<Commande> commandes = new HashSet<>();
 
     // Constructeurs
     public Client() {
@@ -54,7 +60,14 @@ public class Client {
     }
 
     public void setPassword(String password) {
-        this.password=password;
+        this.password = password;
     }
 
+    public Set<Commande> getCommandes() {
+        return commandes;
+    }
+
+    public void setCommandes(Set<Commande> commandes) {
+        this.commandes = commandes;
+    }
 }
